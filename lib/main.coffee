@@ -8,10 +8,13 @@ module.exports =
       default: []
       items:
         type: 'string'
+    opacity:
+      type: 'number'
+      default: 0.2
 
   activate: (@state) ->
-    atom.config.observe 'tree-view-background.imagePaths', (paths) =>
-      @setBackgroundImage()
+    atom.config.observe 'tree-view-background.imagePaths', => @setBackgroundImage()
+    atom.config.observe 'tree-view-background.opacity', => @setBackgroundImage()
 
     $('body').on 'focus', '.tree-view', =>
       @setBackgroundImage()
@@ -49,4 +52,5 @@ module.exports =
       $('.tree-view-scroller').before $bg
 
     $bg.css
+      opacity: atom.config.get('tree-view-background.opacity')
       backgroundImage: "url(\"file://#{ path }\")"
