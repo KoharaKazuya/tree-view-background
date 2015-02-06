@@ -4,5 +4,8 @@
   "version": "0.0.0",
   "private": true,
   "description": "Displays an image in the background of the Tree view.",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "atom-space-pen-views": "^2.0.3"
+  }
 }
