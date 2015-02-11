@@ -4,5 +4,9 @@
   "version": "0.0.0",
   "private": true,
   "description": "Displays an image in the background of the Tree view.",
+  "repository": "https://github.com/KoharaKazuya/tree-view-background",
+  "engines": {
+    "atom": ">=0.177.0"
+  },
   "license": "MIT"
 }
