@@ -1,4 +1,6 @@
 {$} = require 'atom'
+dialog = (require 'remote').require 'dialog'
+ImageUrlRegisterView = require './image-url-register-view'
 
 module.exports =
 
@@ -21,6 +23,8 @@ module.exports =
     $(=> @setBackgroundImage())
 
     atom.commands.add 'atom-workspace', 'tree-view-background:shuffle': => @shuffle()
+    atom.commands.add 'atom-workspace', 'tree-view-background:register-image-url': => @registerImageUrl()
+    atom.commands.add 'atom-workspace', 'tree-view-background:register-image-file': => @registerImageFile()
 
   serialize: -> @state
 
@@ -53,4 +57,12 @@ module.exports =
 
     $bg.css
       opacity: atom.config.get('tree-view-background.opacity')
-      backgroundImage: "url(\"file://#{ path }\")"
+      backgroundImage: "url(\"#{ path }\")"
+
+  registerImageUrl: ->
+    (new ImageUrlRegisterView()).show()
+
+  registerImageFile: ->
+    paths = dialog.showOpenDialog()
+    if paths.length > 0
+      (new ImageUrlRegisterView(paths[0])).show()

@@ -8,5 +8,8 @@
   "engines": {
     "atom": ">=0.177.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "atom-space-pen-views": "^2.0.3"
+  }
 }
