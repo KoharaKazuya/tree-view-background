@@ -24,18 +24,22 @@ class ImageSelectView extends View
     @panel = null
 
   showContents: ->
-    paths = atom.config.get('tree-view-background.imagePaths')
-    return unless paths?
+    paths = repository.getAll()
 
-    paths.forEach (path) =>
-      $div = $('<div>')
-      $div.addClass 'tree-view-background-library-content'
-      $div.css backgroundImage: "url(\"#{ path }\")"
-      $div.on 'click', =>
-        repository.select path
-        repository.show()
-        @hide()
-      @library.append $div
+    if paths? and paths.length > 0
+      paths.forEach (path) =>
+        $div = $('<div>')
+        $div.addClass 'tree-view-background-library-content'
+        $div.css backgroundImage: "url(\"#{ path }\")"
+        $div.on 'click', =>
+          repository.select path
+          repository.show()
+          @hide()
+        @library.append $div
+    else
+      @library.css
+        height: 500
+        backgroundImage: "url(\"#{ repository.get() }\")"
 
   resizeContents: ->
     $tb = $('.tree-view-scroller')

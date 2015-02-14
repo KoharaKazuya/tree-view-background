@@ -13,7 +13,7 @@ class ImageRepository
 
   get: ->
     paths = @getAll()
-    return '' if paths.length is 0
+    return 'atom://tree-view-background/images/register-your-images.png' if paths.length is 0
     paths[if @index < paths.length then @index else paths.length - 1]
 
   getAll: ->
