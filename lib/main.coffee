@@ -1,6 +1,7 @@
-{$} = require 'atom'
-dialog = (require 'remote').require 'dialog'
+{$}                  = require 'atom'
+dialog               = (require 'remote').require 'dialog'
 ImageUrlRegisterView = require './image-url-register-view'
+ImageSelectView      = require './image-select-view'
 
 module.exports =
 
@@ -22,11 +23,15 @@ module.exports =
       @setBackgroundImage()
     $(=> @setBackgroundImage())
 
+    atom.commands.add 'atom-workspace', 'tree-view-background:select': => @select()
     atom.commands.add 'atom-workspace', 'tree-view-background:shuffle': => @shuffle()
     atom.commands.add 'atom-workspace', 'tree-view-background:register-image-url': => @registerImageUrl()
     atom.commands.add 'atom-workspace', 'tree-view-background:register-image-file': => @registerImageFile()
 
   serialize: -> @state
+
+  select: ->
+    (new ImageSelectView()).show()
 
   shuffle: ->
     if @state.index?
