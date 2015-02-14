@@ -1,4 +1,5 @@
-{$, View} = require 'atom-space-pen-views'
+{$, View}  = require 'atom-space-pen-views'
+repository = require './image-repository'
 
 module.exports =
 class ImageSelectView extends View
@@ -31,6 +32,8 @@ class ImageSelectView extends View
       $div.addClass 'tree-view-background-library-content'
       $div.css backgroundImage: "url(\"#{ path }\")"
       $div.on 'click', =>
+        repository.select path
+        repository.show()
         @hide()
       @library.append $div
 

@@ -1,5 +1,5 @@
 {View, TextEditorView} = require 'atom-space-pen-views'
-ImageRegistry = require './image-registry'
+repository             = require './image-repository'
 
 module.exports =
 class ImageUrlRegisterView extends View
@@ -42,7 +42,7 @@ class ImageUrlRegisterView extends View
         maxHeight: '100%'
 
   accept: ->
-    (new ImageRegistry()).register @urlView.getText()
+    repository.add @urlView.getText()
     @hide()
 
   cancel: -> @hide()
