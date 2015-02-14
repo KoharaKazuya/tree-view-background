@@ -2,7 +2,10 @@
 
 Displays an image in the background of the Tree view.
 
-Use below commands to register an image.
+![ScreenShot](https://raw.githubusercontent.com/KoharaKazuya/tree-view-background/master/images/screenshot.gif)
 
-  `tree-view-background:registerImageUrl`
-- `tree-view-background:registerImageFile`
+Use below commands to select or register an image.
+
+- `tree-view-background:select`
+- `tree-view-background:register-image-url`
+- `tree-view-background:register-image-file`
