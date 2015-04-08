@@ -1,4 +1,4 @@
-{$}                  = require 'atom'
+{$}                  = require 'atom-space-pen-views'
 dialog               = (require 'remote').require 'dialog'
 ImageUrlRegisterView = require './image-url-register-view'
 ImageSelectView      = require './image-select-view'
