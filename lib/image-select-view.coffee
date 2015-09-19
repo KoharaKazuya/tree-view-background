@@ -45,5 +45,5 @@ class ImageSelectView extends View
     $tb = $('.tree-view-scroller')
     $contents = $('.tree-view-background-library-content')
     if $tb.size() > 0 and $contents.size() > 0
-      $contents.width  Math.floor($tb.width()  * 2 / 3)
-      $contents.height Math.floor($tb.height() * 2 / 3)
+      $contents.width  Math.max(16, Math.floor($tb.width()  * 2 / 3))
+      $contents.height Math.max(16, Math.floor($tb.height() * 2 / 3))
