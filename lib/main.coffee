@@ -46,6 +46,6 @@ module.exports =
 
   registerImageFile: ->
     paths = dialog.showOpenDialog()
-    if paths.length > 0
+    if paths?.length > 0
       path = fileUrl(paths[0])
       (new ImageUrlRegisterView(path)).show()
