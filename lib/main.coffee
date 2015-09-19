@@ -1,5 +1,6 @@
 {$}                  = require 'atom-space-pen-views'
 dialog               = (require 'remote').require 'dialog'
+fileUrl              = require 'file-url'
 ImageUrlRegisterView = require './image-url-register-view'
 ImageSelectView      = require './image-select-view'
 repository           = require './image-repository'
@@ -46,4 +47,5 @@ module.exports =
   registerImageFile: ->
     paths = dialog.showOpenDialog()
     if paths.length > 0
-      (new ImageUrlRegisterView(paths[0])).show()
+      path = fileUrl(paths[0])
+      (new ImageUrlRegisterView(path)).show()

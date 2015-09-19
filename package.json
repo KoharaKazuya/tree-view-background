@@ -10,6 +10,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "atom-space-pen-views": "^2.0.3"
+    "atom-space-pen-views": "^2.0.3",
+    "file-url": "^1.0.1"
   }
 }
