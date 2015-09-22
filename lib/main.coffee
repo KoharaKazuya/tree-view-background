@@ -1,5 +1,4 @@
 CompositeDisposable   = undefined
-$                     = undefined
 dialog                = undefined
 fileUrl               = undefined
 ImageUrlRegisterView  = undefined
@@ -30,10 +29,6 @@ module.exports =
       'tree-view-background.imagePaths', => @repository.show())
     @disposables.add atom.config.observe(
       'tree-view-background.opacity',    => @repository.show())
-
-    $ ?= require('atom-space-pen-views').$
-    $('body').on 'focus', '.tree-view', => @repository.show()
-    $(=> @repository.show())
 
     @disposables.add atom.commands.add 'atom-workspace',
       'tree-view-background:select': => @select()
