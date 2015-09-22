@@ -2,7 +2,7 @@
 
 Displays an image in the background of the Tree view.
 
-![ScreenShot](https://raw.githubusercontent.com/KoharaKazuya/tree-view-background/master/images/screenshot.gif)
+![ScreenShot](https://cloud.githubusercontent.com/assets/1829589/10011832/50a30556-613b-11e5-96fd-bdbeafe7ae4e.gif)
 
 Use below commands to select or register an image.
 
