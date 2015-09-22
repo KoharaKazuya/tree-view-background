@@ -18,25 +18,28 @@ module.exports =
       default: 0.2
 
   activate: (state) ->
-    CompositeDisposable ?= require('event-kit').CompositeDisposable
-    @disposables = new CompositeDisposable
+    atom.packages.activatePackage('tree-view').then =>
+      CompositeDisposable ?= require('event-kit').CompositeDisposable
+      @disposables = new CompositeDisposable
 
-    ImageRepository ?= require './image-repository'
-    @repository = new ImageRepository
-    @repository.index = state.index
+      ImageRepository ?= require './image-repository'
+      @repository = new ImageRepository
+      @repository.index = state.index
 
-    @disposables.add atom.config.observe(
-      'tree-view-background.imagePaths', => @repository.show())
-    @disposables.add atom.config.observe(
-      'tree-view-background.opacity',    => @repository.show())
+      @disposables.add atom.config.observe(
+        'tree-view-background.imagePaths', => @repository.show())
+      @disposables.add atom.config.observe(
+        'tree-view-background.opacity',    => @repository.show())
 
-    @disposables.add atom.commands.add 'atom-workspace',
-      'tree-view-background:select': => @select()
-      'tree-view-background:shuffle': =>
-        @repository.shuffle()
-        @repository.show()
-      'tree-view-background:register-image-url': => @registerImageUrl()
-      'tree-view-background:register-image-file': => @registerImageFile()
+      @disposables.add atom.commands.add 'atom-workspace',
+        'tree-view-background:select': => @select()
+        'tree-view-background:shuffle': =>
+          @repository.shuffle()
+          @repository.show()
+        'tree-view-background:register-image-url': => @registerImageUrl()
+        'tree-view-background:register-image-file': => @registerImageFile()
+
+      @repository.show()
 
   deactivate: ->
     @disposables.dispose()

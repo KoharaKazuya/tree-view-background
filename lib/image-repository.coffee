@@ -24,23 +24,23 @@ class ImageRepository
     @index = i if i >= 0
 
   show: ->
-    atom.packages.activatePackage('tree-view').then =>
-      treeView = atom.packages.getActivePackage('tree-view').mainModule.createView()
-      treeViewElement = atom.views.getView treeView
+    treeViewPackage = atom.packages.getActivePackage('tree-view')
+    treeView = treeViewPackage.mainModule.createView()
+    treeViewElement = atom.views.getView treeView
 
-      candidates = treeViewElement.getElementsByClassName 'tree-view-background'
-      bg = if candidates.length > 0
-        candidates[0]
-      else
-        bg = document.createElement 'div'
-        bg.className = 'tree-view-background'
-        treeViewElement.appendChild bg
-        bg
+    candidates = treeViewElement.getElementsByClassName 'tree-view-background'
+    bg = if candidates.length > 0
+      candidates[0]
+    else
+      bg = document.createElement 'div'
+      bg.className = 'tree-view-background'
+      treeViewElement.appendChild bg
+      bg
 
-      bg.setAttribute 'style', """
-        opacity: #{ atom.config.get 'tree-view-background.opacity' };
-        background-image: url("#{ @get() }");
-      """
+    bg.setAttribute 'style', """
+      opacity: #{ atom.config.get 'tree-view-background.opacity' };
+      background-image: url("#{ @get() }");
+    """
 
   shuffle: ->
     len = @getAll().length
