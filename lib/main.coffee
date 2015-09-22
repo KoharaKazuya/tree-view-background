@@ -19,7 +19,7 @@ module.exports =
       default: 0.2
 
   activate: (state) ->
-    CompositeDisposable ?= require('atom').CompositeDisposable
+    CompositeDisposable ?= require('event-kit').CompositeDisposable
     @disposables = new CompositeDisposable
 
     ImageRepository ?= require './image-repository'
