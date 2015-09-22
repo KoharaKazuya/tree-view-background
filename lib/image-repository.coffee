@@ -1,4 +1,4 @@
-{$} = require 'atom-space-pen-views'
+$ = undefined
 
 module.exports =
 class ImageRepository
@@ -26,6 +26,8 @@ class ImageRepository
     @index = i if i >= 0
 
   show: ->
+    $ ?= require('atom-space-pen-views').$
+
     $bg = $('.tree-view-background')
     if $bg.size() is 0
       $bg = $('<div>')

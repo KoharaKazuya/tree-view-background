@@ -1,10 +1,10 @@
-{CompositeDisposable} = require 'atom'
-{$}                   = require 'atom-space-pen-views'
-dialog                = (require 'remote').require 'dialog'
-fileUrl               = require 'file-url'
-ImageUrlRegisterView  = require './image-url-register-view'
-ImageSelectView       = require './image-select-view'
-ImageRepository       = require './image-repository'
+CompositeDisposable   = undefined
+$                     = undefined
+dialog                = undefined
+fileUrl               = undefined
+ImageUrlRegisterView  = undefined
+ImageSelectView       = undefined
+ImageRepository       = undefined
 
 module.exports =
 
@@ -19,8 +19,10 @@ module.exports =
       default: 0.2
 
   activate: (state) ->
+    CompositeDisposable ?= require('atom').CompositeDisposable
     @disposables = new CompositeDisposable
 
+    ImageRepository ?= require './image-repository'
     @repository = new ImageRepository
     @repository.index = state.index
 
@@ -29,6 +31,7 @@ module.exports =
     @disposables.add atom.config.observe(
       'tree-view-background.opacity',    => @repository.show())
 
+    $ ?= require('atom-space-pen-views').$
     $('body').on 'focus', '.tree-view', => @repository.show()
     $(=> @repository.show())
 
@@ -48,13 +51,18 @@ module.exports =
   }
 
   select: ->
+    ImageSelectView ?= require './image-select-view'
     (new ImageSelectView(@repository)).show()
 
   registerImageUrl: ->
+    ImageUrlRegisterView ?= require './image-url-register-view'
     (new ImageUrlRegisterView(@repository)).show()
 
   registerImageFile: ->
+    dialog ?= (require 'remote').require 'dialog'
     paths = dialog.showOpenDialog()
     if paths?.length > 0
+      fileUrl ?= require 'file-url'
       path = fileUrl(paths[0])
+      ImageUrlRegisterView ?= require './image-url-register-view'
       (new ImageUrlRegisterView(@repository, path)).show()
