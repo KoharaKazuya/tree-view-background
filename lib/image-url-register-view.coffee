@@ -1,5 +1,4 @@
 {View, TextEditorView} = require 'atom-space-pen-views'
-repository             = require './image-repository'
 
 module.exports =
 class ImageUrlRegisterView extends View
@@ -12,7 +11,7 @@ class ImageUrlRegisterView extends View
         @button 'register', class: 'btn btn-primary pull-right', click: 'accept'
       @img outlet: 'image', click: 'accept'
 
-  initialize: (path) ->
+  initialize: (@repository, path) ->
     atom.commands.add 'atom-workspace',
       'core:cancel': =>
         @hide()
@@ -42,7 +41,7 @@ class ImageUrlRegisterView extends View
         maxHeight: '100%'
 
   accept: ->
-    repository.add @urlView.getText()
+    @repository.add @urlView.getText()
     @hide()
 
   cancel: -> @hide()

@@ -1,5 +1,4 @@
 {$, View}  = require 'atom-space-pen-views'
-repository = require './image-repository'
 
 module.exports =
 class ImageSelectView extends View
@@ -7,7 +6,7 @@ class ImageSelectView extends View
     @div =>
       @div class: 'tree-view-background-library', outlet: 'library'
 
-  initialize: ->
+  initialize: (@repository) ->
     atom.commands.add 'atom-workspace',
       'core:cancel': =>
         @hide()
@@ -24,7 +23,7 @@ class ImageSelectView extends View
     @panel = null
 
   showContents: ->
-    paths = repository.getAll()
+    paths = @repository.getAll()
 
     if paths? and paths.length > 0
       paths.forEach (path) =>
@@ -32,14 +31,14 @@ class ImageSelectView extends View
         $div.addClass 'tree-view-background-library-content'
         $div.css backgroundImage: "url(\"#{ path }\")"
         $div.on 'click', =>
-          repository.select path
-          repository.show()
+          @repository.select path
+          @repository.show()
           @hide()
         @library.append $div
     else
       @library.css
         height: 500
-        backgroundImage: "url(\"#{ repository.get() }\")"
+        backgroundImage: "url(\"#{ @repository.get() }\")"
 
   resizeContents: ->
     $tb = $('.tree-view-scroller')

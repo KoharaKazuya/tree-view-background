@@ -1,9 +1,7 @@
-{$} = require 'atom-space-pen-views'
-
-instance = null
-
+module.exports =
 class ImageRepository
-  index: 0
+  constructor: ->
+    @index = 0
 
   add: (path) ->
     paths = @getAll()
@@ -26,22 +24,26 @@ class ImageRepository
     @index = i if i >= 0
 
   show: ->
-    $bg = $('.tree-view-background')
-    if $bg.size() is 0
-      $bg = $('<div>')
-      $bg.addClass 'tree-view-background'
-      $('.tree-view-scroller').before $bg
+    treeViewPackage = atom.packages.getActivePackage('tree-view')
+    treeView = treeViewPackage.mainModule.createView()
+    treeViewElement = atom.views.getView treeView
 
-    $bg.css
-      opacity: atom.config.get('tree-view-background.opacity')
-      backgroundImage: "url(\"#{ @get() }\")"
+    candidates = treeViewElement.getElementsByClassName 'tree-view-background'
+    bg = if candidates.length > 0
+      candidates[0]
+    else
+      bg = document.createElement 'div'
+      bg.className = 'tree-view-background'
+      treeViewElement.appendChild bg
+      bg
+
+    bg.setAttribute 'style', """
+      opacity: #{ atom.config.get 'tree-view-background.opacity' };
+      background-image: url("#{ @get() }");
+    """
 
   shuffle: ->
     len = @getAll().length
     return @index = 0 if len is 0
     @index += 1
     @index %= len
-
-module.exports = do ->
-  instance = new ImageRepository() unless instance?
-  instance
