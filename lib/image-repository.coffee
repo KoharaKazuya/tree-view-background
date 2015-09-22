@@ -1,9 +1,9 @@
 {$} = require 'atom-space-pen-views'
 
-instance = null
-
+module.exports =
 class ImageRepository
-  index: 0
+  constructor: ->
+    @index = 0
 
   add: (path) ->
     paths = @getAll()
@@ -41,7 +41,3 @@ class ImageRepository
     return @index = 0 if len is 0
     @index += 1
     @index %= len
-
-module.exports = do ->
-  instance = new ImageRepository() unless instance?
-  instance

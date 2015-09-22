@@ -4,7 +4,7 @@ dialog                = (require 'remote').require 'dialog'
 fileUrl               = require 'file-url'
 ImageUrlRegisterView  = require './image-url-register-view'
 ImageSelectView       = require './image-select-view'
-repository            = require './image-repository'
+ImageRepository       = require './image-repository'
 
 module.exports =
 
@@ -20,22 +20,23 @@ module.exports =
 
   activate: (state) ->
     @disposables = new CompositeDisposable
-    repository.index = state.index
+
+    @repository = new ImageRepository
+    @repository.index = state.index
 
     @disposables.add atom.config.observe(
-      'tree-view-background.imagePaths', -> repository.show())
+      'tree-view-background.imagePaths', => @repository.show())
     @disposables.add atom.config.observe(
-      'tree-view-background.opacity',    -> repository.show())
+      'tree-view-background.opacity',    => @repository.show())
 
-    $('body').on 'focus', '.tree-view', =>
-      repository.show()
-    $(=> repository.show())
+    $('body').on 'focus', '.tree-view', => @repository.show()
+    $(=> @repository.show())
 
     @disposables.add atom.commands.add 'atom-workspace',
       'tree-view-background:select': => @select()
-      'tree-view-background:shuffle': ->
-        repository.shuffle()
-        repository.show()
+      'tree-view-background:shuffle': =>
+        @repository.shuffle()
+        @repository.show()
       'tree-view-background:register-image-url': => @registerImageUrl()
       'tree-view-background:register-image-file': => @registerImageFile()
 
@@ -43,17 +44,17 @@ module.exports =
     @disposables.dispose()
 
   serialize: -> {
-    index: repository.index
+    index: @repository.index
   }
 
   select: ->
-    (new ImageSelectView()).show()
+    (new ImageSelectView(@repository)).show()
 
   registerImageUrl: ->
-    (new ImageUrlRegisterView()).show()
+    (new ImageUrlRegisterView(@repository)).show()
 
   registerImageFile: ->
     paths = dialog.showOpenDialog()
     if paths?.length > 0
       path = fileUrl(paths[0])
-      (new ImageUrlRegisterView(path)).show()
+      (new ImageUrlRegisterView(@repository, path)).show()
