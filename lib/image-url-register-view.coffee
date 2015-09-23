@@ -1,5 +1,6 @@
 {View, TextEditorView} = require 'atom-space-pen-views'
 fileUrl                = require 'file-url'
+dialog                 = (require 'remote').require 'dialog'
 
 dropHereImagePath = 'atom://tree-view-background/images/drop-here.png'
 
@@ -7,15 +8,21 @@ module.exports =
 class ImageUrlRegisterView extends View
   @content: ->
     @div class: 'tree-view-background-registry', =>
-      @text 'Input image URL.'
-      @subview 'urlView', new TextEditorView(mini: true, placeholderText: 'URL')
       @div class: 'block', =>
-        @button 'cancel', class: 'btn', click: 'cancel'
-        @button 'register', class: 'btn btn-primary pull-right', click: 'accept'
-      @img
-        outlet: 'image'
-        class: 'tree-view-background-registry-preview'
-        click: 'accept'
+        @text 'Input image URL'
+        @subview 'urlView', new TextEditorView
+          mini: true
+          placeholderText: 'URL'
+      @div class: 'block', =>
+        @button 'Open',     class: 'btn btn-info',               click: 'open'
+        @button 'Register', class: 'btn btn-primary pull-right', click: 'accept'
+        @button 'Cancel',   class: 'btn btn-default pull-right', click: 'cancel'
+      @div class: 'block', =>
+        @img
+          outlet: 'image'
+          class: 'tree-view-background-registry-preview'
+          click: 'accept'
+
 
   initialize: (@repository, path = '') ->
     atom.commands.add 'atom-workspace',
@@ -54,6 +61,12 @@ class ImageUrlRegisterView extends View
     files = e.originalEvent.dataTransfer.files
     return unless files.length > 0 and (file = files[0])?
     @urlView.setText fileUrl(file.path)
+
+  open: ->
+    paths = dialog.showOpenDialog()
+    if paths?.length > 0
+      path = fileUrl paths[0]
+      @urlView.setText path
 
   cancel: ->
     @hide()
