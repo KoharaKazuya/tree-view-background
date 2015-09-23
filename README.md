@@ -7,5 +7,4 @@ Displays an image in the background of the Tree view.
 Use below commands to select or register an image.
 
 - `tree-view-background:select`
-- `tree-view-background:register-image-url`
-- `tree-view-background:register-image-file`
+- `tree-view-background:register-image`

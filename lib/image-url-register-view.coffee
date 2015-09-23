@@ -24,7 +24,7 @@ class ImageUrlRegisterView extends View
           click: 'accept'
 
 
-  initialize: (@repository, path = '') ->
+  initialize: (@repository) ->
     atom.commands.add 'atom-workspace',
       'core:cancel': => @hide()
 
@@ -35,7 +35,7 @@ class ImageUrlRegisterView extends View
     @urlView.getModel().getBuffer().onDidChange =>
       @previewImage()
 
-    @urlView.setText path
+    @urlView.setText ''
 
   show: ->
     @panel ?= atom.workspace.addModalPanel(item: this)

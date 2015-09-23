@@ -1,6 +1,4 @@
 CompositeDisposable   = undefined
-dialog                = undefined
-fileUrl               = undefined
 ImageUrlRegisterView  = undefined
 ImageSelectView       = undefined
 ImageRepository       = undefined
@@ -36,8 +34,7 @@ module.exports =
         'tree-view-background:shuffle': =>
           @repository.shuffle()
           @repository.show()
-        'tree-view-background:register-image-url': => @registerImageUrl()
-        'tree-view-background:register-image-file': => @registerImageFile()
+        'tree-view-background:register-image': => @registerImageUrl()
 
       @repository.show()
 
@@ -55,12 +52,3 @@ module.exports =
   registerImageUrl: ->
     ImageUrlRegisterView ?= require './image-url-register-view'
     (new ImageUrlRegisterView(@repository)).show()
-
-  registerImageFile: ->
-    dialog ?= (require 'remote').require 'dialog'
-    paths = dialog.showOpenDialog()
-    if paths?.length > 0
-      fileUrl ?= require 'file-url'
-      path = fileUrl(paths[0])
-      ImageUrlRegisterView ?= require './image-url-register-view'
-      (new ImageUrlRegisterView(@repository, path)).show()
