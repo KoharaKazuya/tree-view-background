@@ -1,6 +1,6 @@
 {View, TextEditorView} = require 'atom-space-pen-views'
 fileUrl                = require 'file-url'
-dialog                 = (require 'remote').require 'dialog'
+dialog                 = require('electron').remote.dialog
 
 dropHereImagePath = 'atom://tree-view-background/images/drop-here.png'
 
