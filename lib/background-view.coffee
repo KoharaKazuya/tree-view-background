@@ -9,8 +9,10 @@ class BackgroundView extends View
     treeViewPackage = atom.packages.getActivePackage('tree-view')
     treeView = treeViewPackage.mainModule.createView()
 
-    treeView.find('.tree-view-background').remove()
-    treeView.prepend @
+    for other in document.querySelectorAll('.tree-view-background')
+      other.parentNode.removeChild(other)
+
+    @insertBefore treeView.element
 
   setImage: (path) ->
     @css backgroundImage: "url(\"#{ path }\")"
