@@ -1,7 +1,7 @@
 {
   "name": "tree-view-background",
   "main": "./lib/main",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "private": true,
   "description": "Displays an image in the background of the Tree view.",
   "repository": "https://github.com/KoharaKazuya/tree-view-background",
