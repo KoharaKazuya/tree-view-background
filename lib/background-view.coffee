@@ -7,7 +7,7 @@ class BackgroundView extends View
 
   initialize: ->
     treeViewPackage = atom.packages.getActivePackage('tree-view')
-    treeView = treeViewPackage.mainModule.createView()
+    treeView = treeViewPackage.mainModule.getTreeViewInstance()
 
     for other in document.querySelectorAll('.tree-view-background')
       other.parentNode.removeChild(other)
