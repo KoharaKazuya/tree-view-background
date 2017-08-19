@@ -36,7 +36,7 @@ module.exports =
           @repository.show()
         'tree-view-background:register-image': => @registerImageUrl()
 
-      @repository.show()
+      @disposables.add atom.workspace.onDidOpen(() => @repository.show())
 
   deactivate: ->
     @disposables.dispose()
